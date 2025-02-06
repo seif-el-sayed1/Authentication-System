@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap'); 
+* {
+    font-family: "Cairo", serif;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+.nav {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.279), 0.333;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px -2px rgba(0, 0, 0, 0.3);
+}
+.nav img {
+    width: 50px;
+}
+.nav button, .home button {
+    border: 1px solid black;
+    background-color: white;
+    transition: 0.3s;
+    letter-spacing: 1.2px;
+}
+.nav button:hover, .home button:hover {
+    background-color: black;
+    color: white;
+}
+.home .container {
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.home img {
+    width: 300px;
+}  
+.get-start img {
+    width: 50px;
+}
+.get-start .form {
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.form {
+    color: white;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);;
+    width: 25%;
+}
+.form input {
+    border: none;
+    border-radius: 10px;
+    outline: none;
+    width: 100%;
+    background-color: #050f28;
+    margin-bottom: 10px;
+    caret-color: white;
+    color: white;
+}
+.get-start button {
+    border: none;
+    border-radius: 10px;
+    background-color: #050f28;
+    color: white;
+    transition: 0.3s;
+}
+.get-start button:hover {
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.5);
+}
+.form-footer p {
+    font-size: 14px;
+    margin-top: 10px;
+
+}
+.form-footer p span {
+    text-decoration: underline;
+    color: #050f28;
+    font-weight: bold;
+    cursor: pointer;
+}
