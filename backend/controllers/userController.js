@@ -7,13 +7,14 @@ const transporter = require("../config/nodemailer")
 const users = require("../models/users")
 
 const register = async (req, res) => {
-    const {fullName, email, password} = req.body
+    const {name, email, password} = req.body
     
     try {
-        const existUser = await users.findOne({email: email})
-        if(!fullName || !email || !password) {
-            return res.json({Success: false, message: "fullName,email and password are required"})
+        const existUser = await users.findOne({email: email})        
+        if(!name || !email || !password) {
+            return res.json({Success: false, message: "name,email and password are required"})
         }
+
         if(existUser) {
             return res.json({Success: false, message: "User Already Exist"})
         }
@@ -27,7 +28,7 @@ const register = async (req, res) => {
         const hashPassword = await bcrypt.hash(password, 10)
         
         const user = new users({
-            fullName,
+            name,
             email, 
             password: hashPassword
         })
@@ -35,14 +36,6 @@ const register = async (req, res) => {
         
         const token = jwt.sign({id: user._id}, process.env.JWT_SECRET_KEY, {expiresIn: '7d'})
         res.cookie('token', token, {maxAge:120000, httpOnly:true, secure:true, sameSite:"strict"})
-
-        // const mailOption = {
-        //     from: process.env.EMAIL_SENDER,
-        //     to: email, 
-        //     subject: "welcome To Our Website",
-        //     text: `welcome To Our Website your id is ${user._id}`
-        // }
-        // await transporter.sendMail(mailOption)
 
         return res.json({Success: true, message: "Sign Up successfully"})
     } catch(error) {
@@ -184,7 +177,9 @@ const userData = async (req, res) => {
         if(!user) {
             return res.json({Success: false, message: "User not found"})
         }
-        return res.json({success: true, data: user})
+    
+        return res.json({Success: true, userData: user})
+        
         
     } catch (error) {
         return res.json({Success: false, message: error.message})

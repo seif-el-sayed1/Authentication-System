@@ -7,7 +7,11 @@ const userRouter = require('./router/userRouter');
 const cookieParser = require('cookie-parser');
 
 app.use(express.json())
-app.use(cors({credentials: true}))
+const allowedOrigins = ["http://localhost:5173"] 
+app.use(cors({
+    origin: allowedOrigins,
+    credentials: true
+}))
 app.use(cookieParser())
 
 
