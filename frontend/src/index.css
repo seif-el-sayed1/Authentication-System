@@ -25,6 +25,36 @@
     background-color: black;
     color: white;
 }
+.nav .user-letter {
+    background-color: #4a9cff;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+}
+.nav ul {
+    list-style: none;
+    position: absolute;
+    right: 85px;
+    top: 52px;
+    visibility: hidden;
+}
+.nav ul li{
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: whitesmoke;
+    padding: 0 10px;
+    transition: 0.3s;
+}
+.nav ul li:hover {
+    background-color: rgb(223, 223, 223);
+    visibility: visible;
+}
+.nav ul:hover {
+    visibility: visible;
+}
+.nav .user-letter:hover + ul {
+    visibility: visible;
+}
 .home .container {
     position: absolute;
     top: 55%;
@@ -42,8 +72,6 @@
     top: 55%;
     left: 50%;
     transform: translate(-50%, -50%);
-}
-.form {
     color: white;
     border-radius: 10px;
     background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);;
@@ -72,11 +100,44 @@
 .form-footer p {
     font-size: 14px;
     margin-top: 10px;
-
 }
 .form-footer p span {
     text-decoration: underline;
     color: #050f28;
     font-weight: bold;
     cursor: pointer;
+}
+.verify-email img {
+    width: 50px;
+}
+.verify-email .otp {
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);;
+    width: 25%;
+}
+.otp-input input {
+    border: none;
+    border-radius: 5px; 
+    background-color: #050f28; 
+    color: #fff; 
+}
+.otp-input input:focus {
+    outline: none; 
+    border-color: #1a73e8; 
+    background-color: #1a73e8; 
+}
+.otp button {
+    border: none;
+    border-radius: 10px;
+    background-color: #050f28;
+    color: white;
+    transition: 0.3s;
+}
+.otp button:hover {
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.5);
 }

@@ -28,9 +28,9 @@ export const GetStarted = () => {
                     setIsLoggedin(true)
                     getUserData()
                     navigate("/")
-                    toast.success(data.message)
+                    toast.success(data.message, {position: "top-center"})
                 } else {
-                    toast.error(data.message)
+                    toast.error(data.message, {position: "top-center"})
                 }
             } else {
                 const {data} = await axios.post(backendUrl + "api/login", 
@@ -40,19 +40,19 @@ export const GetStarted = () => {
                     setIsLoggedin(true)
                     getUserData()
                     navigate("/")
-                    toast.success(data.message)
+                    toast.success(data.message, {position: "top-center"})
                 } else {
-                    toast.error(data.message)
+                    toast.error(data.message, {position: "top-center"})
                 }
             }
         } catch (error) {
-            toast.error(error.message)
+            toast.success(error.message, {position: "top-center"})
         }
     }
 
     return (
         <div className="get-start" style={{backgroundImage: `url(${background})`, height: "100vh" }}>
-            <div className="container">
+            <div className="container"> 
                 <div style={{cursor:"pointer"}} onClick={() => navigate("/")} className='d-flex align-items-center'>
                     <img src={authenticationImg} alt="authentication" />
                     <p className='fs-4 fw-bold mt-3'>Authentication</p>
@@ -74,7 +74,6 @@ export const GetStarted = () => {
                         {state === "signUp" ? (<p className="">Already Have an Account ? <span onClick={() => setState("login")}>Login</span></p>)
                         : (<p>Create New Account <span onClick={() => setState("signUp")}>Sign Up</span></p>)}
                     </div>
-                    
                 </div>
 
             </div>
