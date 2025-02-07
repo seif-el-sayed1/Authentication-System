@@ -34,7 +34,7 @@ const register = async (req, res) => {
         })
         await user.save()
         
-        const token = jwt.sign({id: user._id}, process.env.JWT_SECRET_KEY, {expiresIn: '7d'})
+        const token = jwt.sign({id: user._id}, process.env.JWT_SECRET_KEY, {expiresIn: '5m'})
         res.cookie('token', token, {maxAge:120000, httpOnly:true, secure:true, sameSite:"strict"})
 
         return res.json({Success: true, message: "Sign Up successfully"})
@@ -58,7 +58,7 @@ const login = async (req, res) => {
             return res.json({Success: false, message: "Wrong Password"})
         }
 
-        const token = jwt.sign({id: user._id}, process.env.JWT_SECRET_KEY, {expiresIn: '7d'})
+        const token = jwt.sign({id: user._id}, process.env.JWT_SECRET_KEY, {expiresIn: '5m'})
         res.cookie('token', token, {maxAge:120000, httpOnly:true, secure:true, sameSite:"strict"})
 
         return res.json({Success: true, message: "logged in successfully"})
@@ -69,7 +69,7 @@ const login = async (req, res) => {
 
 const logout = async (req, res) => {
     try {
-        res.clearCookie('token', {maxAge:120000, httpOnly:true, secure:true, sameSite:"strict"})
+        res.clearCookie('token', {httpOnly:true, secure:true, sameSite:"strict"})
         return res.json({Success: true, message: "logged Out"})
     } catch (error) {
         return res.json({Success: false, message: error.message})
@@ -95,7 +95,7 @@ const sendVerifyOtp = async (req, res) => {
         }
         await transporter.sendMail(mailOption)
 
-        return res.json({success: true, message: "Verification Otp Sent , Check Your Email"})
+        return res.json({Success: true, message: "Verification Otp Sent , Check Your Email"})
     } catch (error) {
         return res.json({Success: false, message: error.message})
     }
@@ -106,18 +106,18 @@ const verifyEmail = async(req, res) => {
     try {
         const user = await users.findById(req.user.id)
         if(!otp) {
-            return res.json({success: false, message: "Please Enter The Otp"})
+            return res.json({Success: false, message: "Please Enter The Otp"})
         }
-        if(user.verifyOtp !== otp || user.verifyOtpExpired < Date.now()) {
-            return res.json({success: false, message: "Invalid Otp"})
+        if(user.verifyOtp != otp || user.verifyOtpExpired < Date.now()) {
+            return res.json({Success: false, message: "Invalid Otp"})
         }
 
         user.isVerified = true
         user.verifyOtp = ''
-        user.resetOtpExpired = 0
+        user.verifyOtpExpired = 0
         await user.save()
 
-        return res.json({success: true, message: "Verified Email Successfully"})
+        return res.json({Success: true, message: "Verified Email Successfully"})
     } catch (error) {
         return res.json({Success: false, message: error.message})
     }
@@ -140,7 +140,7 @@ const sendResetOtp = async (req, res) => {
         }
         await transporter.sendMail(mailOption)
 
-        return res.json({success: true, message: "Reset Otp sent , Check Your Email"})
+        return res.json({Success: true, message: "Reset Otp sent , Check Your Email"})
     } catch (error) {
         return res.json({Success: false, message: error.message})
     }
@@ -150,22 +150,22 @@ const resetPassword = async (req, res) => {
     try {
         const user = await users.findById(req.user.id)
         if(!otp || !newPassword) {
-            return res.json({success: false, message: "otp, newPassword are required"})
+            return res.json({Success: false, message: "otp, newPassword are required"})
         }
         if(user.resetOtp !== otp || user.resetOtpExpired < Date.now()) {
-            return res.json({success: false, message: "Invalid Otp"})
+            return res.json({Success: false, message: "Invalid Otp"})
         }
         const hashNewPassword = await bcrypt.hash(newPassword, 10)
         const samePassword = await bcrypt.compare(newPassword, user.password)
         if(samePassword) {
-            return res.json({success: false, message: 'The Password is already used'})
+            return res.json({Success: false, message: 'The Password is already used'})
         }
         user.password = hashNewPassword
         user.resetOtp = ""
         user.resetOtpExpired = 0    
         await user.save()
 
-        return res.json({success: true, message: "Reset Password Successfully"})
+        return res.json({Success: true, message: "Reset Password Successfully"})
     } catch (error) {
         return res.json({Success: false, message: error.message})
     }
@@ -188,7 +188,7 @@ const userData = async (req, res) => {
 
 const isAuthenticated = async (req, res) => {
     try {
-        return res.json({success: true})
+        return res.json({Success: true})
     } catch(error) {
         return res.json({Success: false, message: error.message})
     }

@@ -18,7 +18,7 @@ router.route('/reset-password').post(verifyToken, userController.resetPassword)
 
 router.route('/user').get(verifyToken, userController.userData)
 
-router.route('/is-auth').post(verifyToken, userController.isAuthenticated)
+router.route('/is-auth').get(verifyToken, userController.isAuthenticated)
 
 
 module.exports = router;
