@@ -7,6 +7,7 @@
     padding: 0;
     margin: 0;
 }
+/* ------------------------- nav-------------------------*/
 .nav {
     border-bottom: 1px solid rgba(0, 0, 0, 0.279), 0.333;
     border-radius: 10px;
@@ -61,23 +62,21 @@
     left: 50%;
     transform: translate(-50%, -50%);
 }
+/* ------------------------- home -------------------------*/
 .home img {
     width: 300px;
 }  
+/* ------------------------- login & register -------------------------*/
 .get-start img {
     width: 50px;
 }
 .get-start .form {
-    position: absolute;
-    top: 55%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     color: white;
     border-radius: 10px;
     background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);;
     width: 25%;
 }
-.form input {
+input {
     border: none;
     border-radius: 10px;
     outline: none;
@@ -110,7 +109,7 @@
 .verify-email img {
     width: 50px;
 }
-.verify-email .otp {
+.otp {
     position: absolute;
     top: 55%;
     left: 50%;

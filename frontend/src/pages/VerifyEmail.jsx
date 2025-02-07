@@ -51,7 +51,6 @@ export const VerifyEmail = () => {
     useEffect(() => {
         userData && userData.isVerified && navigate("/");
     },[isLoggedin, userData])
-
     return (
         <div className="verify-email" style={{backgroundImage: `url(${background})`, height: "100vh" }}>
             <div className="container">

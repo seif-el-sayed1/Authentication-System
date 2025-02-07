@@ -57,22 +57,24 @@ export const GetStarted = () => {
                     <img src={authenticationImg} alt="authentication" />
                     <p className='fs-4 fw-bold mt-3'>Authentication</p>
                 </div>
-                <div className="form p-3" >
-                    <div className="form-head text-center">
-                        <h2 className="fw-bold">{state === 'signUp' ? "Create Account" : "Login"}</h2>
-                        <p style={{color: "gray"}}>{state === 'signUp' ? "Create Your Account" : "Login to your account"}</p>
-                    </div>
-                    <form onSubmit={handleSubmit}>
-                        {state === "signUp" && 
-                        <input onChange={(e) => setName(e.target.value)} className="px-2 py-1" type="text" placeholder="Full Name" required />}
-                        <input onChange={(e) => setEmail(e.target.value)} className="px-2 py-1" type="text" placeholder="Email" required />
-                        <input onChange={(e) => setPassword(e.target.value)} className="px-2 py-1" type="text" placeholder="Password" required />
-                        <p style={{textDecoration: "underline", cursor: "pointer"}}>Forget Your Password ? </p>
-                        <button className="w-100 py-1">{state === "signUp" ? "Sign Up" : "Login"}</button>
-                    </form>
-                    <div className="text-center form-footer">
-                        {state === "signUp" ? (<p className="">Already Have an Account ? <span onClick={() => setState("login")}>Login</span></p>)
-                        : (<p>Create New Account <span onClick={() => setState("signUp")}>Sign Up</span></p>)}
+                <div className="container d-flex justify-content-center mt-5">
+                    <div className="form p-3" >
+                        <div className="form-head text-center">
+                            <h2 className="fw-bold">{state === 'signUp' ? "Create Account" : "Login"}</h2>
+                            <p style={{color: "gray"}}>{state === 'signUp' ? "Create Your Account" : "Login to your account"}</p>
+                        </div>
+                        <form onSubmit={handleSubmit}>
+                            {state === "signUp" && 
+                            <input onChange={(e) => setName(e.target.value)} className="px-2 py-1 mb-2" type="text" placeholder="Full Name" required />}
+                            <input onChange={(e) => setEmail(e.target.value)} className="px-2 py-1 mb-2" type="email" placeholder="Email" required />
+                            <input onChange={(e) => setPassword(e.target.value)} className="px-2 py-1 mb-2" type="text" placeholder="Password" required />
+                            <p  onClick={() => navigate("/resetPassword")} style={{textDecoration: "underline", cursor: "pointer"}}>Forget Your Password ? </p>
+                            <button className="w-100 py-1">{state === "signUp" ? "Sign Up" : "Login"}</button>
+                        </form>
+                        <div className="text-center form-footer">
+                            {state === "signUp" ? (<p className="">Already Have an Account ? <span onClick={() => setState("login")}>Login</span></p>)
+                            : (<p>Create New Account <span onClick={() => setState("signUp")}>Sign Up</span></p>)}
+                        </div>
                     </div>
                 </div>
 

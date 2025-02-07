@@ -3,6 +3,7 @@ import {GetStarted} from "./pages/getStarted"
 import { Routes, Route } from "react-router-dom";
 import {ToastContainer} from "react-toastify"
 import { VerifyEmail } from "./pages/VerifyEmail";
+import { ResetPassword } from "./pages/ResetPassword";
 function App() {
   return (
     <>
@@ -11,6 +12,7 @@ function App() {
         <Route path="/" element={<Home />}/>
         <Route path="/getStarted" element={<GetStarted />}/>
         <Route path="/verifyEmail" element={<VerifyEmail />}/>
+        <Route path="/resetPassword" element={<ResetPassword />}/>
       </Routes>
     </>
   )
