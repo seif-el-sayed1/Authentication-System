@@ -14,7 +14,7 @@ router.route('/send-verify-otp').post(verifyToken, userController.sendVerifyOtp)
 router.route('/verify-email').post(verifyToken, userController.verifyEmail)
 
 router.route('/send-reset-otp').post(userController.sendResetOtp)
-router.route('/reset-password').post(verifyToken, userController.resetPassword)
+router.route('/reset-password').post(userController.resetPassword)
 
 router.route('/user').get(verifyToken, userController.userData)
 

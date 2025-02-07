@@ -127,7 +127,9 @@ const sendResetOtp = async (req, res) => {
     try {
         const user = await users.findOne({email})
         const otp = String(Math.floor(100000 + Math.random() * 900000))
-
+        if(!user) {
+            return res.json({Success: false, message: "Email not Found"})
+        }
         user.resetOtp = otp
         user.resetOtpExpired = Date.now() + 24 * 60 * 60 * 1000      
         await user.save()
@@ -146,13 +148,13 @@ const sendResetOtp = async (req, res) => {
     }
 }
 const resetPassword = async (req, res) => {
-    const {otp, newPassword} = req.body
+    const {email, otp, newPassword} = req.body
     try {
-        const user = await users.findById(req.user.id)
+        const user = await users.findOne({email})
         if(!otp || !newPassword) {
             return res.json({Success: false, message: "otp, newPassword are required"})
         }
-        if(user.resetOtp !== otp || user.resetOtpExpired < Date.now()) {
+        if(user.resetOtp != otp || user.resetOtpExpired < Date.now()) {
             return res.json({Success: false, message: "Invalid Otp"})
         }
         const hashNewPassword = await bcrypt.hash(newPassword, 10)
