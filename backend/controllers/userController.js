@@ -2,9 +2,9 @@ const validator = require('validator')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken');
 const nodemailer = require("nodemailer")
-
 const transporter = require("../config/nodemailer")
 const users = require("../models/users")
+const {EMAIL_VERIFY_TEMPLATE, PASSWORD_RESET_TEMPLATE} = require("../config/emailTemplates")
 
 const register = async (req, res) => {
     const {name, email, password} = req.body
@@ -91,7 +91,7 @@ const sendVerifyOtp = async (req, res) => {
             from: process.env.EMAIL_SENDER,
             to: user.email, 
             subject: "Verify Your Email",
-            text: `Your Verify Otp is  ${user.verifyOtp}`
+            html: EMAIL_VERIFY_TEMPLATE.replace("{{otp}}", otp).replace("{{email}}", user.email)
         }
         await transporter.sendMail(mailOption)
 
@@ -116,7 +116,6 @@ const verifyEmail = async(req, res) => {
         user.verifyOtp = ''
         user.verifyOtpExpired = 0
         await user.save()
-
         return res.json({Success: true, message: "Verified Email Successfully"})
     } catch (error) {
         return res.json({Success: false, message: error.message})
@@ -138,7 +137,7 @@ const sendResetOtp = async (req, res) => {
             from: process.env.EMAIL_SENDER,
             to: email, 
             subject: "Reset Your Password",
-            text: `Your Reset Otp is  ${user.resetOtp}`
+            html: PASSWORD_RESET_TEMPLATE.replace("{{otp}}", otp).replace("{{email}}", user.email)
         }
         await transporter.sendMail(mailOption)
 
