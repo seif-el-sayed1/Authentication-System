@@ -21,9 +21,9 @@ const register = async (req, res) => {
         if(!validator.isEmail(email)) {
             return res.json({Success: false, message: "Invalid email"})
         }
-        // if(!validator.isStrongPassword(password)) {
-        //     return res.json({Success: false, message: "Please Enter Strong Password"})
-        // }
+        if(!validator.isStrongPassword(password)) {
+            return res.json({Success: false, message: "Please Enter Strong Password"})
+        }
         
         const hashPassword = await bcrypt.hash(password, 10)
         
