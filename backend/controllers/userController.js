@@ -12,7 +12,7 @@ const register = async (req, res) => {
     try {
         const existUser = await users.findOne({email: email})        
         if(!name || !email || !password) {
-            return res.json({Success: false, message: "name,email and password are required"})
+            return res.json({Success: false, message: "Name,Email and Password are Required"})
         }
 
         if(existUser) {
@@ -34,10 +34,10 @@ const register = async (req, res) => {
         })
         await user.save()
         
-        const token = jwt.sign({id: user._id}, process.env.JWT_SECRET_KEY, {expiresIn: '5m'})
+        const token = jwt.sign({id: user._id}, process.env.JWT_SECRET_KEY, {expiresIn: '10m'})
         res.cookie('token', token, {maxAge:120000, httpOnly:true, secure:true, sameSite:"strict"})
 
-        return res.json({Success: true, message: "Sign Up successfully"})
+        return res.json({Success: true, message: "Sign Up"})
     } catch(error) {
         return res.json({Success: false, message: error.message})
     }
@@ -47,10 +47,10 @@ const login = async (req, res) => {
     try {
         const user = await users.findOne({email: email})
         if(!email || !password) {
-            return res.json({Success: false, message: "email and password are required"})
+            return res.json({Success: false, message: "Email and Password are Required"})
         }
         if(!user) {
-            return res.json({Success: false, message: "User not found"})
+            return res.json({Success: false, message: "User not Found"})
         }
 
         const truePassword = await bcrypt.compare(password, user.password)
@@ -61,7 +61,7 @@ const login = async (req, res) => {
         const token = jwt.sign({id: user._id}, process.env.JWT_SECRET_KEY, {expiresIn: '5m'})
         res.cookie('token', token, {maxAge:120000, httpOnly:true, secure:true, sameSite:"strict"})
 
-        return res.json({Success: true, message: "logged in successfully"})
+        return res.json({Success: true, message: "Logged In"})
     } catch (error) {
         return res.json({Success: false, message: error.message})
     }
@@ -70,7 +70,7 @@ const login = async (req, res) => {
 const logout = async (req, res) => {
     try {
         res.clearCookie('token', {httpOnly:true, secure:true, sameSite:"strict"})
-        return res.json({Success: true, message: "logged Out"})
+        return res.json({Success: true, message: "Logged Out"})
     } catch (error) {
         return res.json({Success: false, message: error.message})
     }
@@ -151,7 +151,7 @@ const resetPassword = async (req, res) => {
     try {
         const user = await users.findOne({email})
         if(!otp || !newPassword) {
-            return res.json({Success: false, message: "otp, newPassword are required"})
+            return res.json({Success: false, message: "Otp and New Password are Required"})
         }
         if(user.resetOtp != otp || user.resetOtpExpired < Date.now()) {
             return res.json({Success: false, message: "Invalid Otp"})
@@ -159,7 +159,7 @@ const resetPassword = async (req, res) => {
         const hashNewPassword = await bcrypt.hash(newPassword, 10)
         const samePassword = await bcrypt.compare(newPassword, user.password)
         if(samePassword) {
-            return res.json({Success: false, message: 'The Password is already used'})
+            return res.json({Success: false, message: 'The Password Is already Used'})
         }
         user.password = hashNewPassword
         user.resetOtp = ""
